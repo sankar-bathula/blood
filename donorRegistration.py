@@ -24,16 +24,18 @@ cursor = db.cursor()
 
 def enter_dynamic_data():
 	name = raw_input("Enter full name :")
+	bloodGroup = raw_input("Enter Blood Group :")
+	RhFactor =raw_input("Enter RhFactor Type:")
 	gender =raw_input("Enter Gender :")
 	dob = raw_input("enter date of birth :")
 	workLocation =raw_input("Enter work location :")
 	homeLocation = raw_input("Enter home location :")
 	#postedDate =raw_input("Enter Posted date :")
 	status = raw_input("Enter Status 0 or 1 :")
-	timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+	ts = time.time()
+	postedDateTime =datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
 	try:
-		print workLocation
-		cursor.execute("INSERT INTO donorsRegistration(name, gender, dob, workLocation, homeLocation, postedDate, status) VALUES(%s, %s, %s,%s, %s, %s, %s)", (name, gender, dob, workLocation, homeLocation, timestamp, status))
+		cursor.execute("INSERT INTO donorsRegistration(name, blood_group, rh_factor, gender, dob, workLocation, homeLocation, postedDate, status) VALUES(%s, %s, %s, %s, %s,%s, %s, %s, %s)", (name, bloodGroup, RhFactor, gender, dob, workLocation, homeLocation, postedDateTime, status))
 		db.commit()
 		print("Data inserted Successfully")
 	except Error as error:
